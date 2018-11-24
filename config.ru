@@ -39,4 +39,19 @@ class PlainRack
   end
 end
 
+class PlainMiddleware
+  # MEMO: this argument is s lambda object, which is given to `run` command.
+  def initialize(main)
+    @main = main
+  end
+
+  def call(env)
+    puts 'hi, this is a rack middleware'
+
+    @main.call(env)
+  end
+end
+
+use PlainMiddleware
+
 run PlainRack.new.res
